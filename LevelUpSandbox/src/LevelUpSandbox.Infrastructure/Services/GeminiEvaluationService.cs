@@ -9,12 +9,12 @@ namespace LevelUpSandbox.Infrastructure.Services;
 public class GeminiEvaluationService : ICodeEvaluationService
 {
     private readonly HttpClient _httpClient;
-    private readonly string _apiKey;
-    private readonly string _model;
+    private readonly string? _apiKey;
+    private readonly string? _model;
 
     public GeminiEvaluationService(HttpClient httpClient, IConfiguration configuration)
     {
-        _httpClient = httpClient;
+        _httpClient = httpClient ?? throw new ArgumentNullException(nameof(httpClient));
         _model = configuration["Gemini:Model"];
         _apiKey = configuration["Gemini:ApiKey"];
     }
@@ -115,20 +115,20 @@ public class GeminiEvaluationService : ICodeEvaluationService
 
 public class GeminiResponse
 {
-    public Candidate[] Candidates { get; set; }
+    public Candidate[]? Candidates { get; set; }
 }
 
 public class Candidate
 {
-    public Content Content { get; set; }
+    public Content? Content { get; set; }
 }
 
 public class Content
 {
-    public Part[] Parts { get; set; }
+    public Part[]? Parts { get; set; }
 }
 
 public class Part
 {
-    public string Text { get; set; }
+    public string? Text { get; set; }
 }
