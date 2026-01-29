@@ -16,10 +16,13 @@ jobs:
           dotnet-version: '8.0.x'
 
       - name: Restore
+        working-directory: ./LevelUpSandbox
         run: dotnet restore
 
       - name: Build
+        working-directory: ./LevelUpSandbox
         run: dotnet build --no-restore --configuration Release
 
       - name: Test
+        working-directory: ./LevelUpSandbox
         run: dotnet test --no-build --verbosity normal --configuration Release
