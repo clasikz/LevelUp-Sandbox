@@ -5,8 +5,8 @@ namespace LevelUpSandbox.Core.Entities;
 public class Feedback
 {
     public int Score { get; set; }
-    public string Remarks { get; set; }
-    public string ImprovedSolution { get; set; }
+    public string? Remarks { get; set; }
+    public string? ImprovedSolution { get; set; }
 
     public Feedback(string rawJson)
     {
