@@ -62,10 +62,10 @@ public class GeminiEvaluationService : ICodeEvaluationService
     {
         var placeholders = new[] { "string", "test", "" };
 
-        if (placeholders.Any(p => exercise.Title.Equals(p, StringComparison.OrdinalIgnoreCase)) ||
-            placeholders.Any(p => exercise.Description.Equals(p, StringComparison.OrdinalIgnoreCase)) ||
-            placeholders.Any(p => submission.UserCode.Equals(p, StringComparison.OrdinalIgnoreCase)) ||
-            placeholders.Any(p => submission.Language.Equals(p, StringComparison.OrdinalIgnoreCase)) ||
+        if (placeholders.Any(p => exercise.Title?.Equals(p, StringComparison.OrdinalIgnoreCase) == true) ||
+            placeholders.Any(p => exercise.Description?.Equals(p, StringComparison.OrdinalIgnoreCase) == true) ||
+            placeholders.Any(p => submission.UserCode?.Equals(p, StringComparison.OrdinalIgnoreCase) == true) ||
+            placeholders.Any(p => submission.Language?.Equals(p, StringComparison.OrdinalIgnoreCase) == true) ||
             string.IsNullOrWhiteSpace(exercise.Title) ||
             string.IsNullOrWhiteSpace(exercise.Description) ||
             string.IsNullOrWhiteSpace(submission.UserCode) ||
