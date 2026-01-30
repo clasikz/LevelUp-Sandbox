@@ -1,0 +1,25 @@
+FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
+WORKDIR /src
+
+COPY ["src/LevelUpSandbox.Api/LevelUpSandbox.Api.csproj", "LevelUpSandbox.Api/"]
+COPY ["src/LevelUpSandbox.Core/LevelUpSandbox.Core.csproj", "LevelUpSandbox.Core/"]
+COPY ["src/LevelUpSandbox.Infrastructure/LevelUpSandbox.Infrastructure.csproj", "LevelUpSandbox.Infrastructure/"]
+
+RUN dotnet restore "LevelUpSandbox.Api/LevelUpSandbox.Api.csproj"
+
+COPY src/ .
+
+WORKDIR "/src/LevelUpSandbox.Api"
+RUN dotnet build "LevelUpSandbox.Api.csproj" -c Release -o /app/build
+
+FROM build AS publish
+RUN dotnet publish "LevelUpSandbox.Api.csproj" -c Release -o /app/publish
+
+FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS final
+WORKDIR /app
+COPY --from=publish /app/publish .
+
+EXPOSE 8080
+ENV ASPNETCORE_URLS=http://+:8080
+
+ENTRYPOINT ["dotnet", "LevelUpSandbox.Api.dll"]
